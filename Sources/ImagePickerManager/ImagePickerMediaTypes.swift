@@ -11,12 +11,12 @@ struct ImagePickerMediaTypes: OptionSet {
     var rawValue: Set<CFString>
 
     init(rawValue: Set<CFString>) {
-    self.rawValue = rawValue
-  }
+        self.rawValue = rawValue
+    }
 
     var imagePickerMediaTypes: [String] {
-    return rawValue.map { $0 as String }
-  }
+        return rawValue.map { $0 as String }
+    }
 
     static let images = ImagePickerMediaTypes(rawValue: [kUTTypeImage])
     static let movies = ImagePickerMediaTypes(rawValue: [kUTTypeMovie])
