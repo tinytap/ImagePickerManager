@@ -45,35 +45,36 @@ public final class ImagePickerManager {
     /// Present a `UIImagePickerController` in a specific configuration, in a thread-safe way.
     /// Multiple calls to this method will safely enqueue image picking tasks, removing the
     /// need for the caller to manage state. The completion handler is called on the main queue.
-    @discardableResult func pickImage(over context: UIViewController, animated: Bool, completionHandler: @escaping (UIImage?) -> Void) -> ImagePickerTask {
-    let operation = ImagePickerOperation(context: context, picker: picker, animated: animated)
+    @discardableResult
+    public func pickImage(over context: UIViewController, animated: Bool, completionHandler: @escaping (UIImage?) -> Void) -> ImagePickerTask {
+        let operation = ImagePickerOperation(context: context, picker: picker, animated: animated)
 
-    operation.completionBlock = { [unowned operation] in
-      let result = operation.result
-      DispatchQueue.main.async {
-        completionHandler(result)
-      }
+        operation.completionBlock = { [unowned operation] in
+          let result = operation.result
+          DispatchQueue.main.async {
+            completionHandler(result)
+          }
+        }
+
+        operationQueue.addOperation(operation)
+        return ImagePickerTask(operation)
     }
 
-    operationQueue.addOperation(operation)
-    return ImagePickerTask(operation)
-  }
-
     /// Cancels all current and pending image picker operations.
-    func cancelAll() {
-    operationQueue.cancelAllOperations()
-  }
+    public func cancelAll() {
+        operationQueue.cancelAllOperations()
+    }
 }
 
 /// A handle to an image picker operation, allowing it to be cancelled.
-final class ImagePickerTask {
+public final class ImagePickerTask {
   private let operation: ImagePickerOperation
 
   fileprivate init(_ operation: ImagePickerOperation) {
     self.operation = operation
   }
 
-  func cancel() {
+  public func cancel() {
     operation.cancel()
   }
 }
