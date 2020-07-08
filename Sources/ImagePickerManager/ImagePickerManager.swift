@@ -53,7 +53,7 @@ public final class ImagePickerManager {
     }
 }
 
-/// A handle to an image picker operation, allowing it to be cancelled.
+/// Handle  an image picker operation, allowing it to be cancelled.
 public final class ImagePickerTask {
   private let operation: ImagePickerOperation
 
@@ -69,7 +69,7 @@ public final class ImagePickerTask {
 /// Manages the state of a single image picking operation.
 ///
 /// - Requires: Must be started on `pickerQueue`.
-private final class ImagePickerOperation: Operation, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+private final class ImagePickerOperation: Operation {
     let animated: Bool
     let context: UIViewController
     let picker: UIImagePickerController
@@ -119,18 +119,38 @@ private final class ImagePickerOperation: Operation, UIImagePickerControllerDele
         }
 
         picker.delegate = self
-        picker.allowsEditing = true
+        picker.modalPresentationStyle = .formSheet
+        picker.presentationController?.delegate = context as? UIAdaptivePresentationControllerDelegate
+
         willChangeValue(for: \.isExecuting)
+
         context.present(picker, animated: animated) {
           self.state = .executing
           self.didChangeValue(for: \.isExecuting)
         }
     }
 
+    override func cancel() {
+        cancelImagePickerController()
+    }
+
+    private func cancelImagePickerController() {
+        willChangeValue(for: \.isExecuting)
+        willChangeValue(for: \.isFinished)
+
+        state = .cancelledByUser
+
+        context.dismiss(animated: true)  {
+            self.didChangeValue(for: \.isExecuting)
+            self.didChangeValue(for: \.isFinished)
+        }
+    }
+}
+
+extension ImagePickerOperation: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
 
         var image: UIImage?
-        picker.allowsEditing = true
 
         if let possibleImage = info[.editedImage] as? UIImage {
             image = possibleImage
@@ -145,7 +165,8 @@ private final class ImagePickerOperation: Operation, UIImagePickerControllerDele
         willChangeValue(for: \.isExecuting)
         willChangeValue(for: \.isFinished)
 
-        state = .completed(image)
+        let result = isCancelled ? nil : image
+        state = .completed(result)
 
         context.dismiss(animated: true) {
             self.didChangeValue(for: \.isExecuting)
@@ -164,8 +185,12 @@ private final class ImagePickerOperation: Operation, UIImagePickerControllerDele
           self.didChangeValue(for: \.isFinished)
         }
     }
+
 }
 
+extension ImagePickerOperation: UINavigationControllerDelegate { }
+
+// MERK: - ImagePickingState
 private enum ImagePickingState {
   case ready
   case executing
