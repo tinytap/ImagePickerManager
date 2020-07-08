@@ -40,17 +40,17 @@ extension ImagePickerMediaTypes: SetAlgebra {
     }
 
     mutating func formIntersection(_ other: ImagePickerMediaTypes) {
-    rawValue.formIntersection(other.rawValue)
-  }
+        rawValue.formIntersection(other.rawValue)
+    }
 
     mutating func formSymmetricDifference(_ other: ImagePickerMediaTypes) {
-    rawValue.formSymmetricDifference(other.rawValue)
-  }
+        rawValue.formSymmetricDifference(other.rawValue)
+    }
 }
 
 extension ImagePickerMediaTypes: CustomStringConvertible {
     var description: String {
-let names = rawValue.lazy.map { $0 as String }.joined(separator: ", ")
-return "(\(names))"
-}
+        let names = rawValue.lazy.map { $0 as String }.joined(separator: ", ")
+        return "(\(names))"
+    }
 }
