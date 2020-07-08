@@ -21,6 +21,9 @@ struct ImagePickerMediaTypes: OptionSet {
     static let images = ImagePickerMediaTypes(rawValue: [kUTTypeImage])
     static let movies = ImagePickerMediaTypes(rawValue: [kUTTypeMovie])
 
+    @available(iOS 9.1, *)
+    static let livePhotos = ImagePickerMediaTypes(rawValue: [kUTTypeImage, kUTTypeLivePhoto])
+
     static func availableMediaTypes(for sourceType: UIImagePickerController.SourceType) -> ImagePickerMediaTypes {
         let mediaTypes = UIImagePickerController.availableMediaTypes(for: sourceType) ?? []
         return ImagePickerMediaTypes(rawValue: Set(mediaTypes as [CFString]))

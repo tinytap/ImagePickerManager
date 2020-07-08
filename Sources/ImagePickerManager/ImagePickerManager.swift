@@ -12,23 +12,10 @@ public final class ImagePickerManager {
     private let picker = UIImagePickerController()
     private let operationQueue = OperationQueue()
 
-    public init (imageMediaType: Bool, sourceType: UIImagePickerController.SourceType, allowsEditing: Bool = false) {
+    @available(iOS 9.1, *)
+    public init(sourceType: UIImagePickerController.SourceType, mediaType: MediaType = .images, allowsEditing: Bool = false) {
+        let mediaTypes: ImagePickerMediaTypes = mediaType.setImagePickerMediaTypes()
 
-        let mediaTypes: ImagePickerMediaTypes = imageMediaType ? .images : .movies
-        precondition(UIImagePickerController.isSourceTypeAvailable(sourceType), "Unavailable source type '\(sourceType.caseDescription)'.")
-        precondition(!mediaTypes.isEmpty, "You must provide at least one media type.")
-
-        let availableMediaTypes = ImagePickerMediaTypes.availableMediaTypes(for: sourceType).intersection(mediaTypes)
-        precondition(!availableMediaTypes.isEmpty, "Requested media types not available: \(mediaTypes).")
-
-        picker.allowsEditing = allowsEditing
-        picker.mediaTypes = mediaTypes.imagePickerMediaTypes
-        picker.sourceType = sourceType
-        operationQueue.maxConcurrentOperationCount = 1
-        operationQueue.underlyingQueue = pickerQueue
-    }
-
-    init(sourceType: UIImagePickerController.SourceType, mediaTypes: ImagePickerMediaTypes = .images, allowsEditing: Bool = false) {
         precondition(UIImagePickerController.isSourceTypeAvailable(sourceType), "Unavailable source type '\(sourceType.caseDescription)'.")
         precondition(!mediaTypes.isEmpty, "You must provide at least one media type.")
 

@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		B1B3B93D24B59E3F00907D2C /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B3B93C24B59E3F00907D2C /* MediaType.swift */; };
 		B1BFA20824B4A810006D15F6 /* ImagePickerMediaTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BFA20724B4A810006D15F6 /* ImagePickerMediaTypes.swift */; };
 		OBJ_23 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* ImagePickerManager.swift */; };
 		OBJ_30 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B1B3B93C24B59E3F00907D2C /* MediaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaType.swift; sourceTree = "<group>"; };
 		B1BFA20724B4A810006D15F6 /* ImagePickerMediaTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerMediaTypes.swift; sourceTree = "<group>"; };
 		"ImagePickerManager::ImagePickerManager::Product" /* ImagePickerManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ImagePickerManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"ImagePickerManager::ImagePickerManagerTests::Product" /* ImagePickerManagerTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = ImagePickerManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,7 +105,7 @@
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -112,7 +114,6 @@
 				OBJ_14 /* Products */,
 				OBJ_17 /* README.md */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -128,6 +129,7 @@
 			children = (
 				OBJ_9 /* ImagePickerManager.swift */,
 				B1BFA20724B4A810006D15F6 /* ImagePickerMediaTypes.swift */,
+				B1B3B93C24B59E3F00907D2C /* MediaType.swift */,
 			);
 			name = ImagePickerManager;
 			path = Sources/ImagePickerManager;
@@ -199,7 +201,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_14 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -217,6 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				B1B3B93D24B59E3F00907D2C /* MediaType.swift in Sources */,
 				B1BFA20824B4A810006D15F6 /* ImagePickerMediaTypes.swift in Sources */,
 				OBJ_23 /* ImagePickerManager.swift in Sources */,
 			);
