@@ -14,7 +14,7 @@ public final class ImagePickerManager {
 
     @available(iOS 9.1, *)
     public init(sourceType: UIImagePickerController.SourceType, mediaType: MediaType = .images, allowsEditing: Bool = false) {
-        let mediaTypes: ImagePickerMediaTypes = mediaType.setImagePickerMediaTypes()
+        let mediaTypes: ImagePickerMediaTypes = mediaType.getImagePickerMediaTypes()
 
         precondition(UIImagePickerController.isSourceTypeAvailable(sourceType), "Unavailable source type '\(sourceType.caseDescription)'.")
         precondition(!mediaTypes.isEmpty, "You must provide at least one media type.")

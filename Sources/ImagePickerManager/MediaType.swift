@@ -14,7 +14,7 @@ public enum MediaType {
     case movies
     case livePhotos
 
-    internal func setImagePickerMediaTypes() -> ImagePickerMediaTypes {
+    internal func getImagePickerMediaTypes() -> ImagePickerMediaTypes {
         switch self {
         case .images:
             return ImagePickerMediaTypes(rawValue: [kUTTypeImage])
